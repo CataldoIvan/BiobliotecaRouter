@@ -1,7 +1,12 @@
 import { useState } from "react"
+import { useAppContext } from "../store/Store"
+import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export default function Create(){
 
+    const store=useAppContext()
+    let navigate = useNavigate();
     const [title,setTitle]=useState('')
     const [author,setAuthor]=useState('')
     const [cover,setCover]=useState('')
@@ -51,6 +56,7 @@ export default function Create(){
 
     }
     const handleSubmit=(e)=>{
+        
         e.preventDefault()
 
         const newBook={
@@ -64,8 +70,12 @@ export default function Create(){
 
         }
 
+        store.createItem(newBook)
+        navigate('/')
+
     }
     return <>
+    <Link to='/'>Home</Link>
     <form onSubmit={handleSubmit}>
         <div>
             <label htmlFor="title">Titulo</label>
